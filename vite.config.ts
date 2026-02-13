@@ -12,16 +12,13 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    hmr: {
-      overlay: false,
-    },
+    hmr: { overlay: false },
   },
 
   preview: {
     allowedHosts: [
       "portfolio-website-3yrd.onrender.com",
-      // optional but recommended:
-      // ".onrender.com"
+      "www.turjo.ami.bd",
     ],
   },
 
