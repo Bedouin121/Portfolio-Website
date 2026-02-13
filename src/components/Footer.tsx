@@ -17,10 +17,10 @@ export const Footer = () => {
             className="flex justify-center gap-6 mb-8"
           >
             {[
-              { icon: Github, href: 'https://github.com', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+              { icon: Github, href: 'https://github.com/Bedouin121', label: 'GitHub' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/hasib-turjo-01263b2b4/', label: 'LinkedIn' },
               { icon: Code2, href: 'https://leetcode.com/u/hturjo121', label: 'LeetCode' },
-              { icon: Trophy, href: 'https://kaggle.com', label: 'Kaggle' },
+              { icon: Trophy, href: 'https://www.kaggle.com/turjoone', label: 'Kaggle' },
             ].map((link) => (
               <motion.a
                 key={link.label}
@@ -44,14 +44,6 @@ export const Footer = () => {
             transition={{ delay: 0.2 }}
             className="text-center space-y-3"
           >
-            <p className="font-mono text-sm text-muted-foreground">
-              Designed & Built with{' '}
-              <Heart className="w-4 h-4 inline-block text-destructive animate-pulse" />{' '}
-              using Flutter & React
-            </p>
-            <p className="font-mono text-xs text-muted-foreground/60">
-              © {new Date().getFullYear()} Your Name. All rights reserved.
-            </p>
           </motion.div>
         </div>
       </div>
