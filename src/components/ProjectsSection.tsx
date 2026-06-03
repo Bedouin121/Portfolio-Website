@@ -3,7 +3,7 @@ import { useMemo, useRef, useState } from 'react';
 import { Folder } from 'lucide-react';
 
 /* -----------------------------
-   Types
+Types
 ------------------------------ */
 
 type Project = {
@@ -16,7 +16,7 @@ type Project = {
 };
 
 /* -----------------------------
-   Safe Data
+Safe Data
 ------------------------------ */
 
 const projects: Project[] = [
@@ -31,11 +31,12 @@ const projects: Project[] = [
   },
   {
     title: 'SwiftShip',
-    description: 'Centralized logistics platform for shipping and delivery management.',
+    description:
+      'Centralized logistics platform for shipping and delivery management.',
     tech: ['Flutter', 'Firebase', 'REST API', 'Google Maps'],
     github: 'https://github.com/Bedouin121/Swiftship',
     featured: true,
-    image: '/images/swiftship.jpg',
+    image: '/images/SwiftShip.jpg',
   },
   {
     title: 'Breast Cancer Diagnosis',
@@ -45,36 +46,23 @@ const projects: Project[] = [
     github:
       'https://github.com/Bedouin121/Breast-Cancer-Diagnosis-using-Neural-Network',
     featured: true,
-    image: '/images/bc.jpg',
-  },
-  {
-    title: 'Weather Dashboard',
-    description: 'Weather app with animations and forecasts.',
-    tech: ['Flutter', 'REST API', 'Lottie'],
-    github: 'https://github.com/example/weather',
-    featured: false,
-  },
-  {
-    title: 'Task Manager',
-    description: 'Productivity app with drag-and-drop lists.',
-    tech: ['Flutter', 'Riverpod', 'Hive'],
-    github: 'https://github.com/example/tasks',
-    featured: false,
+    image: '/images/BC.jpg',
   },
 ];
 
 /* -----------------------------
-   Safe Helpers
+Helpers
 ------------------------------ */
 
-const isValidUrl = (url?: string) =>
-  !!url && /^https?:\/\//.test(url);
-
 const isImagePath = (img?: string) =>
-  !!img && (img.startsWith('/') || img.startsWith('http'));
+  typeof img === 'string' &&
+  (img.startsWith('/') || img.startsWith('http'));
+
+const isValidUrl = (url?: string) =>
+  typeof url === 'string' && /^https?:\/\//.test(url);
 
 /* -----------------------------
-   Image Renderer (Reusable)
+Image Component
 ------------------------------ */
 
 const ProjectImage = ({
@@ -87,7 +75,7 @@ const ProjectImage = ({
   if (!isImagePath(src)) {
     return (
       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-        No Preview
+        No Preview Available
       </div>
     );
   }
@@ -103,7 +91,7 @@ const ProjectImage = ({
 };
 
 /* -----------------------------
-   Featured Project
+Featured Project
 ------------------------------ */
 
 const FeaturedProject = ({
@@ -128,7 +116,7 @@ const FeaturedProject = ({
     >
       {/* Image */}
       <div className={`md:col-span-7 ${isEven ? 'md:order-1' : 'md:order-2'}`}>
-        <div className="aspect-video rounded-xl overflow-hidden bg-muted">
+        <div className="relative aspect-video rounded-xl overflow-hidden bg-muted">
           <ProjectImage src={project.image} title={project.title} />
         </div>
       </div>
@@ -153,7 +141,7 @@ const FeaturedProject = ({
         </div>
 
         <div className="flex flex-wrap gap-2 mt-3">
-          {project.tech?.map((t) => (
+          {project.tech.map((t) => (
             <span key={t} className="text-xs font-mono text-muted-foreground">
               {t}
             </span>
@@ -165,7 +153,7 @@ const FeaturedProject = ({
 };
 
 /* -----------------------------
-   Simple Project Card
+Project Card
 ------------------------------ */
 
 const ProjectCard = ({
@@ -201,11 +189,8 @@ const ProjectCard = ({
       </p>
 
       <div className="flex flex-wrap gap-2 mt-4">
-        {(project.tech ?? []).map((t) => (
-          <span
-            key={t}
-            className="text-xs font-mono text-muted-foreground"
-          >
+        {project.tech.map((t) => (
+          <span key={t} className="text-xs font-mono text-muted-foreground">
             {t}
           </span>
         ))}
@@ -215,7 +200,7 @@ const ProjectCard = ({
 };
 
 /* -----------------------------
-   Main Section
+Main Section
 ------------------------------ */
 
 export const ProjectsSection = () => {
