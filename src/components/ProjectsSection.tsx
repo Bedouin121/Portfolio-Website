@@ -1,145 +1,211 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { ExternalLink, Github, Folder, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useMemo, useRef, useState } from 'react';
+import { Folder } from 'lucide-react';
 
-const projects = [
+/* -----------------------------
+   Types
+------------------------------ */
+
+type Project = {
+  title: string;
+  description: string;
+  tech: string[];
+  github: string;
+  featured: boolean;
+  image?: string;
+};
+
+/* -----------------------------
+   Safe Data
+------------------------------ */
+
+const projects: Project[] = [
   {
     title: 'Legal Shathi',
-    description: 'AI-powered legal platform for Bangladesh that combines law search, document generation, and legal assistance in one system.',
+    description:
+      'AI-powered legal platform for Bangladesh combining law search, document generation, and assistance.',
     tech: ['React', 'OpenAI', 'NodeJS', 'BarikoiAPI'],
-    github: 'https://github.com/Bedouin121/Legal-Shathi,
+    github: 'https://github.com/Bedouin121/Legal-Shathi',
     featured: true,
-    image: 'ecommerce',
+    image: '/images/legalshathi.jpg',
   },
   {
     title: 'SwiftShip',
-    description: 'A Centralized Logistics Platform for streamlined shipping and delivery management.',
+    description: 'Centralized logistics platform for shipping and delivery management.',
     tech: ['Flutter', 'Firebase', 'REST API', 'Google Maps'],
     github: 'https://github.com/Bedouin121/Swiftship',
     featured: true,
-    image: '/legalshathi.jpg,
+    image: '/images/swiftship.jpg',
   },
   {
-    title: 'Breast Cancer Diagnosis using Neural Networks',
-    description: 'Identification and Diagnosis of tumor lesions from Ultrasonography scans utilizing a U-Net style CNN.',
+    title: 'Breast Cancer Diagnosis',
+    description:
+      'U-Net CNN for tumor detection from ultrasonography scans.',
     tech: ['Python', 'TensorFlow', 'U-Net', 'Computer Vision'],
-    github: 'https://github.com/Bedouin121/Breast-Cancer-Diagnosis-using-Neural-Network',
+    github:
+      'https://github.com/Bedouin121/Breast-Cancer-Diagnosis-using-Neural-Network',
     featured: true,
-    image: '/BC.jpg',
+    image: '/images/bc.jpg',
   },
   {
     title: 'Weather Dashboard',
-    description: 'Beautiful weather app with animations and 7-day forecasts.',
+    description: 'Weather app with animations and forecasts.',
     tech: ['Flutter', 'REST API', 'Lottie'],
-    github: 'https://github.com',
+    github: 'https://github.com/example/weather',
     featured: false,
   },
   {
     title: 'Task Manager',
-    description: 'Productivity app with drag-drop lists and calendar sync.',
+    description: 'Productivity app with drag-and-drop lists.',
     tech: ['Flutter', 'Riverpod', 'Hive'],
-    github: 'https://github.com',
-    featured: false,
-  },
-  {
-    title: 'Crypto Portfolio',
-    description: 'Real-time cryptocurrency tracker with price alerts.',
-    tech: ['Flutter', 'WebSocket', 'Charts'],
-    github: 'https://github.com',
+    github: 'https://github.com/example/tasks',
     featured: false,
   },
 ];
 
-const FeaturedProject = ({ project, index, isInView }: { project: typeof projects[0]; index: number; isInView: boolean }) => {
+/* -----------------------------
+   Safe Helpers
+------------------------------ */
+
+const isValidUrl = (url?: string) =>
+  !!url && /^https?:\/\//.test(url);
+
+const isImagePath = (img?: string) =>
+  !!img && (img.startsWith('/') || img.startsWith('http'));
+
+/* -----------------------------
+   Image Renderer (Reusable)
+------------------------------ */
+
+const ProjectImage = ({
+  src,
+  title,
+}: {
+  src?: string;
+  title: string;
+}) => {
+  if (!isImagePath(src)) {
+    return (
+      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+        No Preview
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={title}
+      className="w-full h-full object-cover"
+      loading="lazy"
+    />
+  );
+};
+
+/* -----------------------------
+   Featured Project
+------------------------------ */
+
+const FeaturedProject = ({
+  project,
+  index,
+  inView,
+}: {
+  project: Project;
+  index: number;
+  inView: boolean;
+}) => {
   const isEven = index % 2 === 0;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-      className={`relative grid md:grid-cols-12 items-center gap-4 ${isEven ? '' : 'md:text-right'}`}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`grid md:grid-cols-12 gap-6 items-center ${
+        isEven ? '' : 'md:text-right'
+      }`}
     >
-      {/* Project image/preview */}
+      {/* Image */}
       <div className={`md:col-span-7 ${isEven ? 'md:order-1' : 'md:order-2'}`}>
-        <a href={project.github} target="_blank" rel="noopener noreferrer">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="relative aspect-video rounded-xl overflow-hidden glass-card group cursor-pointer"
-          >
-            {project.image.startsWith('/') ? (
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : (
-              <>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <Folder className="w-16 h-16 mx-auto mb-4 text-primary/50" />
-                    <p className="font-mono text-muted-foreground text-sm">{project.image}</p>
-                  </div>
-                </div>
-              </>
-            )}
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </motion.div>
-        </a>
+        <div className="aspect-video rounded-xl overflow-hidden bg-muted">
+          <ProjectImage src={project.image} title={project.title} />
+        </div>
       </div>
 
-      {/* Project info */}
+      {/* Content */}
       <div className={`md:col-span-5 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-        <div className={`relative z-10 ${isEven ? '' : 'md:text-right'}`}>
-          <p className="font-mono text-primary text-sm mb-2">Featured Project</p>
-          <h3 className="text-2xl font-bold mb-4 hover:text-primary transition-colors">
-            <a href={project.github} target="_blank" rel="noopener noreferrer">
-              {project.title}
-            </a>
-          </h3>
-          <div className={`glass-card p-6 mb-4 ${isEven ? 'md:-ml-8' : 'md:-mr-8'}`}>
-            <p className="text-muted-foreground">{project.description}</p>
-          </div>
-          <div className={`flex flex-wrap gap-2 ${isEven ? '' : 'md:justify-end'}`}>
-            {project.tech.map((t) => (
-              <span key={t} className="font-mono text-sm text-muted-foreground">
-                {t}
-              </span>
-            ))}
-          </div>
+        <p className="text-sm text-primary font-mono mb-2">
+          Featured Project
+        </p>
+
+        <a
+          href={isValidUrl(project.github) ? project.github : '#'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-2xl font-bold hover:text-primary transition"
+        >
+          {project.title}
+        </a>
+
+        <div className="mt-4 p-4 rounded-lg bg-muted/40">
+          <p className="text-muted-foreground">{project.description}</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mt-3">
+          {project.tech?.map((t) => (
+            <span key={t} className="text-xs font-mono text-muted-foreground">
+              {t}
+            </span>
+          ))}
         </div>
       </div>
     </motion.div>
   );
 };
 
-const ProjectCard = ({ project, index, isInView }: { project: typeof projects[0]; index: number; isInView: boolean }) => {
+/* -----------------------------
+   Simple Project Card
+------------------------------ */
+
+const ProjectCard = ({
+  project,
+  inView,
+  index,
+}: {
+  project: Project;
+  inView: boolean;
+  index: number;
+}) => {
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="glass-card-hover p-6 flex flex-col h-full"
+      className="p-6 rounded-xl border bg-card"
     >
-      <div className="flex items-start justify-between mb-4">
-        <Folder className={`w-10 h-10 ${hovered ? 'text-primary' : 'text-muted-foreground'} transition-colors`} />
-        <div className="flex gap-2">
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-            <Github className="w-5 h-5" />
-          </a>
-        </div>
-      </div>
-      <h3 className="text-lg font-bold mb-2 hover:text-primary transition-colors">{project.title}</h3>
-      <p className="text-muted-foreground text-sm flex-1">{project.description}</p>
+      <Folder
+        className={`w-8 h-8 transition ${
+          hovered ? 'text-primary' : 'text-muted-foreground'
+        }`}
+      />
+
+      <h3 className="mt-3 font-semibold text-lg">{project.title}</h3>
+
+      <p className="text-sm text-muted-foreground mt-2">
+        {project.description}
+      </p>
+
       <div className="flex flex-wrap gap-2 mt-4">
-        {project.tech.map((t) => (
-          <span key={t} className="font-mono text-xs text-primary/70">
+        {(project.tech ?? []).map((t) => (
+          <span
+            key={t}
+            className="text-xs font-mono text-muted-foreground"
+          >
             {t}
           </span>
         ))}
@@ -148,53 +214,64 @@ const ProjectCard = ({ project, index, isInView }: { project: typeof projects[0]
   );
 };
 
-export const ProjectsSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+/* -----------------------------
+   Main Section
+------------------------------ */
 
-  const featuredProjects = projects.filter((p) => p.featured);
-  const otherProjects = projects.filter((p) => !p.featured);
+export const ProjectsSection = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+
+  const { featured, others } = useMemo(() => {
+    return {
+      featured: projects.filter((p) => p.featured),
+      others: projects.filter((p) => !p.featured),
+    };
+  }, []);
 
   return (
-    <section id="projects" className="py-32 relative" ref={ref}>
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto"
-        >
-          {/* Section header */}
-          <div className="flex items-center gap-4 mb-16">
-            <span className="text-primary font-mono text-lg">04.</span>
-            <h2 className="section-heading">Projects</h2>
-            <div className="flex-1 h-px bg-border" />
-          </div>
+    <section ref={ref} className="max-w-6xl mx-auto py-16">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        className="mb-12"
+      >
+        <p className="text-sm font-mono text-primary">04.</p>
+        <h2 className="text-3xl font-bold">Projects</h2>
+      </motion.div>
 
-          {/* Featured projects */}
-          <div className="space-y-24 mb-24">
-            {featuredProjects.map((project, index) => (
-              <FeaturedProject key={project.title} project={project} index={index} isInView={isInView} />
-            ))}
-          </div>
+      {/* Featured */}
+      <div className="space-y-24">
+        {featured.map((p, i) => (
+          <FeaturedProject
+            key={p.title}
+            project={p}
+            index={i}
+            inView={inView}
+          />
+        ))}
+      </div>
 
-          {/* Other projects */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mb-8"
-          >
-            <h3 className="text-2xl font-bold mb-2">Other Noteworthy Projects</h3>
-            <p className="text-muted-foreground">View the archive</p>
-          </motion.div>
+      {/* Other */}
+      <div className="mt-20 text-center">
+        <h3 className="text-xl font-semibold">
+          Other Noteworthy Projects
+        </h3>
+        <p className="text-muted-foreground text-sm">
+          Archive of smaller builds
+        </p>
+      </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {otherProjects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} isInView={isInView} />
-            ))}
-          </div>
-        </motion.div>
+      <div className="grid md:grid-cols-3 gap-6 mt-8">
+        {others.map((p, i) => (
+          <ProjectCard
+            key={p.title}
+            project={p}
+            index={i}
+            inView={inView}
+          />
+        ))}
       </div>
     </section>
   );
