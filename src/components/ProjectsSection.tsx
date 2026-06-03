@@ -5,11 +5,10 @@ import { Button } from '@/components/ui/button';
 
 const projects = [
   {
-    title: 'E-Commerce Flutter App',
-    description: 'A full-featured e-commerce mobile application with real-time inventory, payment integration, and beautiful UI animations.',
-    tech: ['Flutter', 'Dart', 'Firebase', 'Stripe'],
-    github: 'https://github.com',
-    live: 'https://example.com',
+    title: 'Legal Shathi',
+    description: 'AI-powered legal platform for Bangladesh that combines law search, document generation, and legal assistance in one system.',
+    tech: ['React', 'OpenAI', 'NodeJS', 'BarikoiAPI'],
+    github: 'https://github.com/Bedouin121/Legal-Shathi,
     featured: true,
     image: 'ecommerce',
   },
@@ -19,7 +18,7 @@ const projects = [
     tech: ['Flutter', 'Firebase', 'REST API', 'Google Maps'],
     github: 'https://github.com/Bedouin121/Swiftship',
     featured: true,
-    image: '/SwiftShip.jpg',
+    image: '/legalshathi.jpg,
   },
   {
     title: 'Breast Cancer Diagnosis using Neural Networks',
