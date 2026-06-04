@@ -48,6 +48,15 @@ const projects: Project[] = [
     featured: true,
     image: '/BC.jpg',
   },
+    {
+    title: 'PaperMInd',
+    description: 'A minimalist RAG-based AI pipeline designed to ingest complex multi-page documents, extract structured semantic insights, and generate deterministic, sourced answers with zero friction.',
+    tech: ['Python', 'TensorFlow', 'Vector Databases', 'LLM Aggregation'],
+    github:
+      'https://github.com/Bedouin121/PaperMind',
+    featured: true,
+    image: '/PM.png',
+  },
 ];
 
 /* -----------------------------
