@@ -4,39 +4,14 @@ import { Building2, Calendar, ChevronRight } from 'lucide-react';
 
 const experiences = [
   {
-    title: 'Senior Flutter Developer',
-    company: 'Google',
-    location: 'Mountain View, CA',
-    period: 'Jan 2024 - Present',
+    title: 'Student Researcher',
+    company: 'CVIS Lab - BRAC University',
+    location: 'Dhaka',
+    period: 'June 2024 – December 2025',
     description: [
-      'Lead development of flagship Flutter applications with 10M+ downloads',
-      'Architected scalable state management solutions using Bloc pattern',
-      'Mentored team of 5 junior developers and conducted code reviews',
-      'Reduced app startup time by 40% through performance optimization',
-    ],
-  },
-  {
-    title: 'Flutter Developer',
-    company: 'Meta',
-    location: 'Menlo Park, CA',
-    period: 'Jun 2022 - Dec 2023',
-    description: [
-      'Built cross-platform features reaching millions of users',
-      'Implemented custom animations and gesture-based interactions',
-      'Collaborated with design team to create pixel-perfect UIs',
-      'Integrated machine learning models for real-time features',
-    ],
-  },
-  {
-    title: 'Mobile Developer Intern',
-    company: 'Startup XYZ',
-    location: 'San Francisco, CA',
-    period: 'May 2021 - Aug 2021',
-    description: [
-      'Developed and shipped 3 Flutter applications from scratch',
-      'Implemented push notifications and deep linking',
-      'Created reusable component library used across projects',
-      'Participated in agile sprints and daily standups',
+      'Co-developed a Bangla Sign Language recognition system using a mid-fusion CNN + TCN architecture trained on 2,000+ video samples, achieving ~92% word-level accuracy — the first application of mid-fusion to Bangla sign language recognition.',
+      'Designed and executed NLP preprocessing pipelines, including labeling, tokenization, and text representation, for a multimodal dataset, enabling downstream model training for the Bangla Sign Language recognition project.',
+      'Built and evaluated CNN-based image classification models for feature extraction tasks, running ~1000 experimental iterations across architectures to identify the best-performing configuration for the lab\'s computer vision pipeline.',
     ],
   },
 ];

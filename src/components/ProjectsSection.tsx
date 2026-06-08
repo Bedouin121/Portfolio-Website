@@ -27,7 +27,7 @@ const projects: Project[] = [
     tech: ['React', 'OpenAI', 'NodeJS', 'BarikoiAPI'],
     github: 'https://github.com/Bedouin121/Legal-Shathi',
     featured: true,
-    image: '/legalshathi.jpg',
+    image: '/images/legalshathi.jpg',
   },
   {
     title: 'SwiftShip',
@@ -36,7 +36,7 @@ const projects: Project[] = [
     tech: ['Flutter', 'Firebase', 'REST API', 'Google Maps'],
     github: 'https://github.com/Bedouin121/Swiftship',
     featured: true,
-    image: '/SwiftShip.jpg',
+    image: '/images/SwiftShip.jpg',
   },
   {
     title: 'Breast Cancer Diagnosis',
@@ -46,7 +46,7 @@ const projects: Project[] = [
     github:
       'https://github.com/Bedouin121/Breast-Cancer-Diagnosis-using-Neural-Network',
     featured: true,
-    image: '/BC.jpg',
+    image: '/images/BC.jpg',
   },
     {
     title: 'PaperMInd',
@@ -55,7 +55,7 @@ const projects: Project[] = [
     github:
       'https://github.com/Bedouin121/PaperMind',
     featured: true,
-    image: '/PM.png',
+    image: '/images/PM.png',
   },
 ];
 

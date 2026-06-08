@@ -7,29 +7,29 @@ const socialLinks = [
   {
     name: 'GitHub',
     icon: Github,
-    url: 'https://github.com/yourusername',
-    username: '@yourusername',
+    url: 'https://github.com/Bedouin121',
+    username: '@Bedouin121',
     color: 'hover:text-foreground',
   },
   {
     name: 'LinkedIn',
     icon: Linkedin,
-    url: 'https://linkedin.com/in/yourusername',
-    username: '/in/yourusername',
+    url: 'https://www.linkedin.com/in/hasib-turjo-01263b2b4/',
+    username: '@hasib-turjo',
     color: 'hover:text-[#0A66C2]',
   },
   {
     name: 'LeetCode',
     icon: Code2,
-    url: 'https://leetcode.com/yourusername',
-    username: '@yourusername',
+    url: 'https://leetcode.com/u/hturjo121/',
+    username: '@hturjo121',
     color: 'hover:text-[#FFA116]',
   },
   {
     name: 'Codeforces',
     icon: Trophy,
-    url: 'https://codeforces.com/profile/yourusername',
-    username: '@yourusername',
+    url: 'https://codeforces.com/profile/turjo.cache',
+    username: '@turjo.cache',
     color: 'hover:text-[#1F8ACB]',
   },
 ];
@@ -95,8 +95,8 @@ export const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <a href="mailto:hello@example.com" className="text-foreground hover:text-primary transition-colors">
-                      hello@example.com
+                    <a href="mailto:turjo.cache@gmail.com" className="text-foreground hover:text-primary transition-colors">
+                      turjo.cache@gmail.com
                     </a>
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="text-foreground">San Francisco, CA</p>
+                    <p className="text-foreground">Dhaka, Bangladesh</p>
                   </div>
                 </div>
               </div>

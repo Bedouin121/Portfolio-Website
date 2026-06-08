@@ -114,7 +114,7 @@ export const AboutSection = () => {
                 <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative aspect-square rounded-2xl overflow-hidden glass-card p-2">
                   <img 
-                    src="/me.jpg" 
+                    src="/images/me.jpg" 
                     alt="Profile" 
                     className="w-full h-full rounded-xl object-cover"
                   />
