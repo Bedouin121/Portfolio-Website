@@ -6,6 +6,7 @@ const experiences = [
   {
     title: 'Student Researcher',
     company: 'CVIS Lab - BRAC University',
+    tabLabel: 'CVIS Lab',
     location: 'Dhaka',
     period: 'June 2024 – December 2025',
     description: [
@@ -45,7 +46,7 @@ export const ExperienceSection = () => {
                 <button
                   key={exp.company}
                   onClick={() => setActiveIndex(index)}
-                  className={`relative px-6 py-4 text-left font-mono text-sm whitespace-nowrap transition-all duration-300 ${
+                  className={`relative px-6 py-4 text-left font-mono text-sm transition-all duration-300 ${
                     activeIndex === index
                       ? 'text-primary bg-primary/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -57,7 +58,7 @@ export const ExperienceSection = () => {
                       activeIndex === index ? 'opacity-100' : 'opacity-0'
                     }`}
                   />
-                  {exp.company}
+                  {exp.tabLabel}
                 </button>
               ))}
             </div>
