@@ -52,9 +52,9 @@ export const LeetCodeStats = () => {
             hard: data.hardSolved || 0
           },
           total: {
-            easy: data.totalEasy || 0,
-            medium: data.totalMedium || 0,
-            hard: data.totalHard || 0
+            easy: 100,
+            medium: 100,
+            hard: 100
           }
         });
       } catch (err) {
@@ -108,25 +108,25 @@ export const LeetCodeStats = () => {
       label: 'Easy', 
       solved: leetCodeStats.solved.easy, 
       total: leetCodeStats.total.easy,
-      color: 'from-green-500 to-emerald-400',
-      bgColor: 'bg-green-500/20',
-      textColor: 'text-green-400'
+      color: 'bg-[#00b8a3]',
+      bgColor: 'bg-[#00b8a3]/20',
+      textColor: 'text-[#00b8a3]'
     },
     { 
       label: 'Medium', 
       solved: leetCodeStats.solved.medium, 
       total: leetCodeStats.total.medium,
-      color: 'from-yellow-500 to-amber-400',
-      bgColor: 'bg-yellow-500/20',
-      textColor: 'text-yellow-400'
+      color: 'bg-[#ffb800]',
+      bgColor: 'bg-[#ffb800]/20',
+      textColor: 'text-[#ffb800]'
     },
     { 
       label: 'Hard', 
       solved: leetCodeStats.solved.hard, 
       total: leetCodeStats.total.hard,
-      color: 'from-red-500 to-rose-400',
-      bgColor: 'bg-red-500/20',
-      textColor: 'text-red-400'
+      color: 'bg-[#ff375f]',
+      bgColor: 'bg-[#ff375f]/20',
+      textColor: 'text-[#ff375f]'
     },
   ];
 
@@ -234,7 +234,7 @@ export const LeetCodeStats = () => {
             </div>
             <div className="h-2 rounded-full bg-muted overflow-hidden">
               <motion.div
-                className={`h-full rounded-full bg-gradient-to-r ${diff.color}`}
+                className={`h-full rounded-full ${diff.color}`}
                 initial={{ width: 0 }}
                 whileInView={{ width: `${(diff.solved / diff.total) * 100}%` }}
                 viewport={{ once: true }}
