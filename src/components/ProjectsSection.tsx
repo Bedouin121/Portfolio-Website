@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
-import { Folder } from 'lucide-react';
+import { Folder, ExternalLink } from 'lucide-react';
 
 /* -----------------------------
 Types
@@ -10,7 +10,8 @@ type Project = {
   title: string;
   description: string;
   tech: string[];
-  github: string;
+  github?: string;
+  live?: string;
   featured: boolean;
   image?: string;
 };
@@ -48,14 +49,21 @@ const projects: Project[] = [
     featured: true,
     image: '/images/BC.jpg',
   },
-    {
+  {
     title: 'PaperMInd',
     description: 'A minimalist RAG-based AI pipeline designed to ingest complex multi-page documents, extract structured semantic insights, and generate deterministic, sourced answers with zero friction.',
     tech: ['Python', 'TensorFlow', 'Vector Databases', 'LLM Aggregation'],
-    github:
-      'https://github.com/Bedouin121/PaperMind',
+    github: 'https://github.com/Bedouin121/PaperMind',
     featured: true,
     image: '/images/PM.png',
+  },
+  {
+    title: 'Shop at Turjo',
+    description: 'E-commerce platform showcase built with WordPress, Elementor, WooCommerce and WooPayments integration.',
+    tech: ['WordPress', 'Elementor', 'WooCommerce', 'WooPayments'],
+    live: 'https://shopatturjo.fwh.is/',
+    featured: true,
+    image: '/images/shop.png',
   },
 ];
 
@@ -137,7 +145,7 @@ const FeaturedProject = ({
         </p>
 
         <a
-          href={isValidUrl(project.github) ? project.github : '#'}
+          href={isValidUrl(project.live ?? project.github) ? (project.live ?? project.github) : '#'}
           target="_blank"
           rel="noopener noreferrer"
           className="text-2xl font-bold hover:text-primary transition"
@@ -155,6 +163,30 @@ const FeaturedProject = ({
               {t}
             </span>
           ))}
+        </div>
+
+        <div className="flex gap-3 mt-4">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-muted-foreground hover:text-primary transition flex items-center gap-1"
+            >
+              GitHub ↗
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-primary hover:underline transition flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Live Site
+            </a>
+          )}
         </div>
       </div>
     </motion.div>
