@@ -1,0 +1,8 @@
+[
+  { "code": "A00", "description": "Cholera" },
+  { "code": "A00.1", "description": "Cholera due to Vibrio cholerae O1, biovar eltor" },
+  { "code": "B18.1", "description": "Chronic viral hepatitis B without delta-agent" },
+  { "code": "E11.9", "description": "Type 2 diabetes mellitus without complications" },
+  { "code": "S72.001A", "description": "Fracture of unspecified part of neck of right femur, initial encounter" },
+  { "code": "Z00.00", "description": "Encounter for general adult medical examination without abnormal findings" }
+]

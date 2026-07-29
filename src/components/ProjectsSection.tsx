@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useMemo, useRef, useState } from 'react';
 import { Folder, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /* -----------------------------
 Types
@@ -12,6 +13,7 @@ type Project = {
   tech: string[];
   github?: string;
   live?: string;
+  internalLink?: string;
   featured: boolean;
   image?: string;
 };
@@ -64,6 +66,15 @@ const projects: Project[] = [
     live: 'https://shopatturjo.fwh.is/',
     featured: true,
     image: '/images/shop.png',
+  },
+  {
+    title: 'ICD-10 / HCPCS Code Validator',
+    description:
+      'Two-layer medical billing code validator — regex format checking followed by existence lookup against CMS-published ICD-10 and HCPCS Level II code lists.',
+    tech: ['React', 'TypeScript', 'Regex', 'CMS Data'],
+    internalLink: '/tools/code-validator',
+    featured: true,
+    image: '/images/HCPCS.jpg',
   },
 ];
 
@@ -144,14 +155,23 @@ const FeaturedProject = ({
           Featured Project
         </p>
 
-        <a
-          href={isValidUrl(project.live ?? project.github) ? (project.live ?? project.github) : '#'}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-2xl font-bold hover:text-primary transition"
-        >
-          {project.title}
-        </a>
+        {project.internalLink ? (
+          <Link
+            to={project.internalLink}
+            className="text-2xl font-bold hover:text-primary transition"
+          >
+            {project.title}
+          </Link>
+        ) : (
+          <a
+            href={isValidUrl(project.live ?? project.github) ? (project.live ?? project.github) : '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-2xl font-bold hover:text-primary transition"
+          >
+            {project.title}
+          </a>
+        )}
 
         <div className="mt-4 p-4 rounded-lg bg-muted/40">
           <p className="text-muted-foreground">{project.description}</p>
@@ -166,6 +186,15 @@ const FeaturedProject = ({
         </div>
 
         <div className="flex gap-3 mt-4">
+          {project.internalLink && (
+            <Link
+              to={project.internalLink}
+              className="text-xs font-mono text-primary hover:underline transition flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open Tool
+            </Link>
+          )}
           {project.github && (
             <a
               href={project.github}
