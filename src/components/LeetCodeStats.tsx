@@ -30,8 +30,8 @@ export const LeetCodeStats = () => {
         setLoading(true);
         setError(null);
 
-        // Using alfa-leetcode-api - a reliable public API
-        const response = await fetch(`https://alfa-leetcode-api.onrender.com/${LEETCODE_USERNAME}/solved`);
+        // Fetching from local serverless proxy
+        const response = await fetch(`/api/leetcode?username=${LEETCODE_USERNAME}`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch LeetCode data');

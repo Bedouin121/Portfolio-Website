@@ -3,31 +3,42 @@ import { useRef, useState } from 'react';
 
 const skillCategories = [
   {
-    title: 'Languages',
+    title: 'Cores and Languages',
     skills: [
       { name: 'Python', level: 95 },
-      { name: 'JavaScript/TypeScript', level: 88 },
-      { name: 'Dart', level: 82 },
-      { name: 'Swift', level: 70 },
+      { name: 'JavaScript', level: 90 },
+      { name: 'C++', level: 85 },
+      { name: 'C#', level: 80 },
+      { name: 'Java', level: 85 },
+      { name: 'HTML/CSS', level: 95 },
+      { name: 'SQL', level: 85 },
+      { name: 'OOP', level: 90 },
+      { name: 'Data Structures', level: 90 },
+      { name: 'Algorithms', level: 90 },
     ],
   },
   {
-    title: 'Frameworks & Libraries',
+    title: 'Web and Frameworks',
     skills: [
-      { name: 'Flutter', level: 95 },
-      { name: 'React', level: 85 },
-      { name: 'Mongoose', level: 90 },
-      { name: 'MySQL', level: 88 },
-
+      { name: 'React', level: 90 },
+      { name: 'Node.js', level: 85 },
+      { name: 'Django', level: 85 },
+      { name: 'Spring Boot', level: 80 },
+      { name: 'REST APIs', level: 90 },
+      { name: 'JWT Authentication', level: 85 },
+      { name: 'PyTorch', level: 80 },
+      { name: 'Tensorflow', level: 80 },
     ],
   },
   {
-    title: 'Tools & Platforms',
+    title: 'Data and Intelligent Systems',
     skills: [
       { name: 'Git', level: 92 },
-      { name: 'Docker', level: 75 },
-      { name: 'Latex', level: 90 },
-
+      { name: 'Docker', level: 85 },
+      { name: 'Linux', level: 85 },
+      { name: 'PostgreSQL', level: 88 },
+      { name: 'MongoDB', level: 85 },
+      { name: 'CI/CD', level: 80 },
     ],
   },
 ];
@@ -121,7 +132,7 @@ export const SkillsSection = () => {
             ))}
           </div>
 
-          {/* Tech icons */}
+          {/* Tech icons - Updated list */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -130,7 +141,7 @@ export const SkillsSection = () => {
           >
             <p className="text-muted-foreground mb-6 font-mono text-sm">Technologies I work with</p>
             <div className="flex flex-wrap justify-center gap-4">
-              {['Flutter', 'Dart', 'React', 'TypeScript', 'Node.js', 'Git', 'Docker'].map(
+              {['Python', 'JavaScript', 'React', 'Node.js', 'Docker', 'PostgreSQL', 'Git'].map(
                 (tech, index) => (
                   <motion.span
                     key={tech}
