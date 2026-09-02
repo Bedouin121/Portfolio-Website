@@ -18,6 +18,7 @@ interface LeetCodeData {
 }
 
 const LEETCODE_USERNAME = "hturjo121";
+const CACHE_KEY = 'leetCodeStatsCache';
 
 export const LeetCodeStats = () => {
   const [leetCodeStats, setLeetCodeStats] = useState<LeetCodeData | null>(null);
@@ -25,9 +26,18 @@ export const LeetCodeStats = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // 1. Try to load from cache immediately
+    const cachedData = localStorage.getItem(CACHE_KEY);
+    if (cachedData) {
+      setLeetCodeStats(JSON.parse(cachedData));
+      setLoading(false); // Hide loader if we have cache
+    }
+
     const fetchLeetCodeStats = async () => {
       try {
-        setLoading(true);
+        // We set loading=true only if we have no cache,
+        // otherwise we fetch in background
+        if (!cachedData) setLoading(true);
         setError(null);
 
         // Fetching from local serverless proxy
@@ -38,12 +48,12 @@ export const LeetCodeStats = () => {
         }
 
         const data = await response.json();
-        
+
         if (!data.solvedProblem) {
           throw new Error('User not found or invalid data');
         }
 
-        setLeetCodeStats({
+        const formattedData = {
           username: LEETCODE_USERNAME,
           solved: {
             all: data.solvedProblem || 0,
@@ -56,10 +66,17 @@ export const LeetCodeStats = () => {
             medium: 100,
             hard: 100
           }
-        });
+        };
+
+        // Cache and update
+        localStorage.setItem(CACHE_KEY, JSON.stringify(formattedData));
+        setLeetCodeStats(formattedData);
       } catch (err) {
         console.error('Error fetching LeetCode stats:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load stats');
+        // Only set error if we don't have cached data to show
+        if (!localStorage.getItem(CACHE_KEY)) {
+           setError(err instanceof Error ? err.message : 'Failed to load stats');
+        }
       } finally {
         setLoading(false);
       }
@@ -93,8 +110,8 @@ export const LeetCodeStats = () => {
           <p className="text-sm text-muted-foreground">
             {error || 'Failed to load LeetCode stats'}
           </p>
-          <button 
-            onClick={handleRetry} 
+          <button
+            onClick={handleRetry}
             className="text-xs text-primary hover:underline px-3 py-1.5 rounded-md hover:bg-primary/10 transition-colors"
           >
             Try again
@@ -104,25 +121,25 @@ export const LeetCodeStats = () => {
     );
   }
   const difficulties = [
-    { 
-      label: 'Easy', 
-      solved: leetCodeStats.solved.easy, 
+    {
+      label: 'Easy',
+      solved: leetCodeStats.solved.easy,
       total: leetCodeStats.total.easy,
       color: 'bg-[#00b8a3]',
       bgColor: 'bg-[#00b8a3]/20',
       textColor: 'text-[#00b8a3]'
     },
-    { 
-      label: 'Medium', 
-      solved: leetCodeStats.solved.medium, 
+    {
+      label: 'Medium',
+      solved: leetCodeStats.solved.medium,
       total: leetCodeStats.total.medium,
       color: 'bg-[#ffb800]',
       bgColor: 'bg-[#ffb800]/20',
       textColor: 'text-[#ffb800]'
     },
-    { 
-      label: 'Hard', 
-      solved: leetCodeStats.solved.hard, 
+    {
+      label: 'Hard',
+      solved: leetCodeStats.solved.hard,
       total: leetCodeStats.total.hard,
       color: 'bg-[#ff375f]',
       bgColor: 'bg-[#ff375f]/20',
@@ -149,7 +166,7 @@ export const LeetCodeStats = () => {
           <h3 className="font-semibold text-foreground">LeetCode Progress</h3>
           <p className="text-sm text-muted-foreground font-mono">@{leetCodeStats.username}</p>
         </div>
-        <a 
+        <a
           href={`https://leetcode.com/u/${leetCodeStats.username}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -196,7 +213,7 @@ export const LeetCodeStats = () => {
           </svg>
           {/* Center text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <motion.span 
+            <motion.span
               className="text-4xl font-bold gradient-text"
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -248,7 +265,7 @@ export const LeetCodeStats = () => {
       {/* Stats badges */}
       <div className="flex justify-center gap-3 mt-6 pt-6 border-t border-border">
         {difficulties.map((diff) => (
-          <div 
+          <div
             key={diff.label}
             className={`px-3 py-1.5 rounded-full ${diff.bgColor} ${diff.textColor} text-xs font-mono`}
           >
