@@ -60,11 +60,20 @@ const projects: Project[] = [
     image: '/images/PM.png',
   },
   {
+    title: 'First Step',
+    description: 'A Jira-style task management tool built around privacy and speed with persistent browser storage and encrypted cloud backups.',
+    tech: ['React', 'TypeScript', 'IndexedDB', 'Vite'],
+    github: 'https://github.com/Bedouin121/First-Step.git',
+    live: 'https://first-step-navy.vercel.app/',
+    featured: true,
+    image: '/images/first.jpg',
+  },
+  {
     title: 'Shop at Turjo',
     description: 'E-commerce platform showcase built with WordPress, Elementor, WooCommerce and WooPayments integration.',
     tech: ['WordPress', 'Elementor', 'WooCommerce', 'WooPayments'],
     live: 'https://shopatturjo.fwh.is/',
-    featured: true,
+    featured: false,
     image: '/images/shop.png',
   },
   {
@@ -73,8 +82,25 @@ const projects: Project[] = [
       'Two-layer medical billing code validator — regex format checking followed by existence lookup against CMS-published ICD-10 and HCPCS Level II code lists.',
     tech: ['React', 'TypeScript', 'Regex', 'CMS Data'],
     internalLink: '/tools/code-validator',
-    featured: true,
+    featured: false,
     image: '/images/HCPCS.jpg',
+  },
+  {
+    title: 'SpringBot',
+    description: 'A full-stack chatbot application featuring a Spring Boot backend with Spring AI integration and a responsive React interface.',
+    tech: ['Java', 'Spring Boot', 'Spring AI', 'OpenAI', 'React'],
+    github: 'https://github.com/Bedouin121/SpringBot',
+    featured: false,
+    image: '/images/SpringBot.jpg',
+  },
+  {
+    title: 'Campaign Scheduler Backend',
+    description: 'A lightweight Spring Boot application designed to create marketing campaigns, manage recipients, and schedule messages.',
+    tech: ['Java 21', 'Spring Boot 3', 'PostgreSQL', 'JWT', 'Maven'],
+    github: 'https://github.com/Bedouin121/Scheduler_backend',
+    live: 'https://scheduler-ruby-two.vercel.app/',
+    featured: false,
+    image: '/images/Scheduler.png',
   },
 ];
 
@@ -265,6 +291,41 @@ const ProjectCard = ({
           </span>
         ))}
       </div>
+
+      {(project.github || project.live || project.internalLink) && (
+        <div className="flex gap-3 mt-4">
+          {project.internalLink && (
+            <Link
+              to={project.internalLink}
+              className="text-xs font-mono text-primary hover:underline transition flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Open Tool
+            </Link>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-muted-foreground hover:text-primary transition flex items-center gap-1"
+            >
+              GitHub ↗
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-primary hover:underline transition flex items-center gap-1"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Live Site
+            </a>
+          )}
+        </div>
+      )}
     </motion.div>
   );
 };
